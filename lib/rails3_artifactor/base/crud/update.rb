@@ -1,3 +1,5 @@
+require 'sugar-high/arguments'
+
 module Rails3::Assist::CRUD
   module Update
     def insert_into_artifact name, options={}, &block
@@ -12,7 +14,8 @@ module Rails3::Assist::CRUD
       res = File.insert_into file, options, &block
       if !res
         # try with :embedded option if default doesn't work
-        options.merge! marker_option(name, type, options.merge(:model_type => :embedded))
+        mrk_opt = marker_option name, type, options.merge(:model_type => :embedded)
+        options.merge! mrk_opt
 
         File.insert_into file, options, &block        
       end
@@ -23,7 +26,8 @@ module Rails3::Assist::CRUD
       # TODO
     end
 
-    def remove_content_from type, *names, replacement_expr=nil, &block
+    def remove_content_from type, *names, &block
+      replacement_expr = last_option names
       names.flatten.each do |name|
         file = existing_file_name(name, type)
         File.remove_content_from file, replacement_expr=nil, &block
@@ -31,11 +35,10 @@ module Rails3::Assist::CRUD
     end  
     
     # TODO
-    alias_methods_for :remove_content_from, :delete_content_from, :delete_from, :remove_from
+    aliases_for :remove_content_from, :delete_content_from, :delete_from, :remove_from
 
     def replace_in_artifact name, options={}, &block
       # TODO
     end
-  end
-    
+  end    
 end

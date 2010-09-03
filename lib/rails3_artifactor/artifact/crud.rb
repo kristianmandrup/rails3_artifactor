@@ -1,5 +1,5 @@
 module Rails3::Assist::Artifact
-  (artifacts - [:model]).each do |name|
+  (Rails3::Assist.artifacts - [:model]).each do |name|
     class_eval %{
       module #{name.to_s.camelize}
         def new_#{name}_content name, content=nil, &block
@@ -9,7 +9,7 @@ module Rails3::Assist::Artifact
     }
   end
 
-  artifacts.each do |name|
+  Rails3::Assist.artifacts.each do |name|
     class_eval %{
       module #{name.to_s.camelize}      
         include Rails3::Assist::BaseHelper
@@ -34,7 +34,7 @@ module Rails3::Assist::Artifact
           remove_artifacts :#{name}, *names
         end              
         
-        aliases_for :#{name}            
+        multi_aliases_for :#{name}            
       end
     }
   end    

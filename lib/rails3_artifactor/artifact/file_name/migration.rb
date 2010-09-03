@@ -1,7 +1,11 @@
+require 'migration_assist'
+
 module Rails3::Assist::Artifact
   module Migration
-    module FileName   
-      include Rails::Migration::Assist::ClassMethods      
+    module FileName 
+      include ::Rails::Migration::Assist::ClassMethods      
+
+      DIR = Rails3::Assist::Artifact::Directory
 
       class FindError
         attr_accessor :find_expr
@@ -12,18 +16,18 @@ module Rails3::Assist::Artifact
       end
     
       def migration_file_name name, options={}
-        number = options[:number]      
+        number = options[:number]              
       
-        migration_dir_name = File.expand_path(migration_dir options[:root_path])
+        migration_dir_name = File.expand_path(DIR.migration_dir options[:root_path])
               
         number = next_migration_number(migration_dir_name) if !number      
-        File.join(migration_dir, "#{number}_#{name}.rb")      
+        File.join(migration_dir_name, "#{number}_#{name}.rb")      
       end
           
       def find_migration name, options={}
         root_path = options[:root_path]        
            
-        migration_dir_name = File.expand_path(migration_dir options[:root_path])
+        migration_dir_name = File.expand_path(DIR.migration_dir options[:root_path])
 
         migration_find_expr = "#{migration_dir_name}/[0-9]*_*.rb"
         migrations = Dir.glob(migration_find_expr)
@@ -41,8 +45,9 @@ module Rails3::Assist::Artifact
 
         migration_file = (options[:last]) ? matching_migrations.last : matching_migrations.first
       end      
-    end
-  
+    end  
+
     include FileName 
+    extend FileName     
   end
 end

@@ -1,7 +1,7 @@
 module Rails3::Assist
   module Orm
     module Base
-      include Rails3::Assist::Model 
+      # include Rails3::Assist::Artifact::Model 
 
       protected
 
@@ -47,3 +47,5 @@ end}
     end
   end
 end
+              
+require_all File.dirname(__FILE__) + '/orm'

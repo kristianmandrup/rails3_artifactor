@@ -3,10 +3,12 @@ module Rails3::Assist::Artifact
     module FileName
       DEFAULT_TEMPLATE_LANG = 'html.erb'
       DEFAULT_REST_ACTION = 'show'
+
+      DIR = Rails3::Assist::Artifact::Directory
           
       def view_file_name folder, *args
         action, type, args = get_view_args(args)
-        File.expand_path File.join(view_dir, folder.to_s, "#{action}.#{type}")
+        File.expand_path File.join(DIR.view_dir, folder.to_s, "#{action}.#{type}")
       end 
       
       def get_view_args args 
@@ -29,5 +31,6 @@ module Rails3::Assist::Artifact
     end 
     
     include FileName
+    extend FileName
   end
 end

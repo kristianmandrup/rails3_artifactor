@@ -65,6 +65,6 @@ module Rails3::Assist::Artifact
       end
     end    
 
-    aliases_for :view 
+    multi_aliases_for :view 
   end
 end
