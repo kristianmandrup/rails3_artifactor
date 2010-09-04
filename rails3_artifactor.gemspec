@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_artifactor}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     ".document",
      ".gitignore",
      ".rspec",
+     "DESIGN_NOTES.markdown",
      "LICENSE",
      "README.markdown",
      "Rakefile",
@@ -38,7 +39,6 @@ Gem::Specification.new do |s|
      "lib/rails3_artifactor/artifact/orm/mongo_mapper.rb",
      "lib/rails3_artifactor/artifact/orm/mongoid.rb",
      "lib/rails3_artifactor/artifact/orm/none.rb",
-     "lib/rails3_artifactor/base/class_methods.rb",
      "lib/rails3_artifactor/base/crud.rb",
      "lib/rails3_artifactor/base/crud/create.rb",
      "lib/rails3_artifactor/base/crud/delete.rb",
@@ -48,11 +48,11 @@ Gem::Specification.new do |s|
      "lib/rails3_artifactor/namespaces.rb",
      "lib/rails3_artifactor/rspec/configure.rb",
      "lib/rails3_artifactor/rspec/macro.rb",
+     "rails3_artifactor.gemspec",
      "spec/fixtures.rb",
      "spec/fixtures/app/controllers/account_controller.rb",
      "spec/fixtures/app/helpers/account_helper.rb",
      "spec/fixtures/app/models/account.rb",
-     "spec/fixtures/app/models/account_observer.rb",
      "spec/fixtures/app/views/account/edit.html.erb",
      "spec/fixtures/app/views/account/show.html.erb",
      "spec/fixtures/db/migrations/20100904095012_create_account.rb",
@@ -89,7 +89,6 @@ Gem::Specification.new do |s|
     "spec/fixtures/app/controllers/account_controller.rb",
      "spec/fixtures/app/helpers/account_helper.rb",
      "spec/fixtures/app/models/account.rb",
-     "spec/fixtures/app/models/account_observer.rb",
      "spec/fixtures/db/migrations/20100904095012_create_account.rb",
      "spec/fixtures.rb",
      "spec/rails3_artifactor/artifact/crud/controller_spec.rb",
