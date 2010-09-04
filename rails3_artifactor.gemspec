@@ -91,6 +91,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/app/models/account.rb",
      "spec/fixtures/db/migrations/20100904095012_create_account.rb",
      "spec/fixtures.rb",
+     "spec/rails3_artifactor/artifact/base_spec.rb",
      "spec/rails3_artifactor/artifact/crud/controller_spec.rb",
      "spec/rails3_artifactor/artifact/crud/helper_spec.rb",
      "spec/rails3_artifactor/artifact/crud/migration_spec.rb",
