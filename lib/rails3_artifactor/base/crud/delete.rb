@@ -1,4 +1,4 @@
-module Rails3::Assist::CRUD
+module Rails3::Assist::Artifact::CRUD
   module Delete
     def remove_artifact name, type
       file = existing_file_name name, type

@@ -1,6 +1,11 @@
 module Rails3::Assist::Artifact
   module View
     include Rails3::Assist::BaseHelper
+
+    def has_view? name, *args, &block
+      file_name = view_file_name(name, args)
+      file_name.path.file?
+    end
     
     # CREATE
     def create_view name, *args, &block
@@ -39,16 +44,12 @@ module Rails3::Assist::Artifact
     
     # UPDATE
     def insert_into_view(name, *args, &block)
-      arguments = args.clone  
-      action, type, args = get_view_args(args)            
-      file_name = view_file_name(name, arguments)
+      file_name = view_file_name(name, args)
       debug "file insertion (view): #{file_name}"
-
-      options = args.first.kind_of?(Hash) ? args.first : {}            
-      marker = options[:before] || options[:after]
-
-      raise ArgumentError, ":before or :after option must be specified for insertion" if !marker      
-      file_insertion(file_name, marker, options, &block)
+      options = last_option args
+      raise ArgumentError, ":before or :after option must be specified for insertion" if !(options[:before] || options[:after])
+      
+      File.insert_into file_name, options, &block
     end
 
     # DELETE

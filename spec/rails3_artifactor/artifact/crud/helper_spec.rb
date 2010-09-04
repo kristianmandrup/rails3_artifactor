@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe 'helper' do
-  use_helpers :app, :helper
+  use_helpers :helper
 
   before :each do              
-    remove_helper :account        
+    Rails3::Assist::Directory.rails_root = fixtures_dir
+    
+    remove_helper :account if has_helper? :account        
     create_helper :account do
       %q{
         def index

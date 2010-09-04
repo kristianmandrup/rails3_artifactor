@@ -15,7 +15,7 @@ module Rails3::Assist::Artifact
       if respond_to?(finder_method)          
         result = send finder_method, name 
         if !result.kind_of? String          
-          raise "The call to #find_#{type}(#{name}) didn't find an existing #{type} file. Error in find expression: #{result.find_expr}" 
+          raise IOError, "The call to #find_#{type}(#{name}) didn't find an existing #{type} file. Error in find expression: #{result.find_expr}" 
         end
         return result
       elsif type == :migration
@@ -24,7 +24,8 @@ module Rails3::Assist::Artifact
       
       # default for non-migration
       file_name = make_file_name(name, type)      
-      raise "No file for ##{type} found at location: #{file_name}" if !File.file?(file_name)
+      raise IOError, "No file for :#{type} found at location: #{file_name}" if !File.file?(file_name)
+      file_name
     end
 
     Rails3::Assist.artifacts.each do |name|

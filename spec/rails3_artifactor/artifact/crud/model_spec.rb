@@ -2,9 +2,12 @@ require 'spec_helper'
 
 describe 'model without orm' do
   use_orm :none
+  use_helper :model
 
-  before :each do              
-    remove_model :account        
+  before :each do  
+    Rails3::Assist::Directory.rails_root = fixtures_dir
+    
+    remove_model :account if has_model? :account                
     create_model :account do
       %q{def index
   end}

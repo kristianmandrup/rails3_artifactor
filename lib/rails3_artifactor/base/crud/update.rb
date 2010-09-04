@@ -1,6 +1,6 @@
 require 'sugar-high/arguments'
 
-module Rails3::Assist::CRUD
+module Rails3::Assist::Artifact::CRUD
   module Update
     def insert_into_artifact name, options={}, &block
       type = get_type(options)
@@ -11,7 +11,7 @@ module Rails3::Assist::CRUD
 
       options1 = options.merge marker_option(name, type, options)
       
-      res = File.insert_into file, options, &block
+      res = File.insert_into file, options1, &block
       if !res
         # try with :embedded option if default doesn't work
         mrk_opt = marker_option name, type, options.merge(:model_type => :embedded)

@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe 'controller' do
-  use_helpers :app, :controller
+  use_helpers :controller
 
   before :each do
-    remove_controller :account        
+    Rails3::Assist::Directory.rails_root = fixtures_dir
+    
+    remove_controller :account if has_controller? :account        
     create_controller :account do
       %q{
         def index

@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe 'view' do
-  use_helpers :app, :view
+  use_helpers :view
 
   before :each do              
-    remove_view :account        
+    Rails3::Assist::Directory.rails_root = fixtures_dir
+
+    remove_view :account if has_view? :account
+
     create_view :account do
       %q{  def index
   end}

@@ -1,13 +1,15 @@
+require 'active_support/inflector'
+
 module Rails3::Assist::Orm
   module None
     include Rails3::Assist::Orm::Base
 
     def orm_marker_name options=nil
-      @name
+      @name.to_s.camelize
     end
 
     def new_model_content name, options={}, &block        
-      content = options[:content] || yield if block
+      content = block ? yield : options[:content]
       @name = name
       simple_file(name, orm_marker_name(options)) { content }
     end

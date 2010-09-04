@@ -1,4 +1,5 @@
 require 'migration_assist'
+require 'sugar-high/regexp'
 
 module Rails3::Assist::Artifact
   module Migration
@@ -39,7 +40,7 @@ module Rails3::Assist::Artifact
         migration_find_expr = /\d+_#{name}\.rb$/
         find_err.find_expr = migration_find_expr
           
-        matching_migrations = migrations.grep(migration_find_expr)
+        matching_migrations = migrations.grep_it(migration_find_expr)
 
         return find_err if matching_migrations.empty?
 

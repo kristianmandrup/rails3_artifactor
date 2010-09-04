@@ -1,3 +1,6 @@
+require 'sugar-high/file'
+require_all File.dirname(__FILE__) + '/crud'
+
 module Rails3::Assist::Artifact
   (Rails3::Assist.artifacts - [:model]).each do |name|
     class_eval %{
@@ -13,13 +16,24 @@ module Rails3::Assist::Artifact
     class_eval %{
       module #{name.to_s.camelize}      
         include Rails3::Assist::BaseHelper
+        include Rails3::Assist::Artifact::CRUD        
+
+        def has_#{name}? name, &block
+          begin
+            found = existing_file_name(name, :#{name}).path.file?
+          rescue IOError
+            found = false
+          end
+          yield if block && found
+          found
+        end
         
         def create_#{name} name, options={}, &block
           create_artifact(name, set(options, :#{name}), &block)
         end          
       
         def insert_into_#{name}(name, options={}, &block)
-          insert_content(name, set(options, :#{name}), &block)      
+          insert_into_artifact(name, set(options, :#{name}), &block)      
         end
         
         def read_#{name}(name, options={}, &block)

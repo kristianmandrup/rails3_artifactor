@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe 'observer' do
-  use_helpers :app, :observer
+  use_helpers :observer
 
-  before :each do              
-    remove_observer :account        
+  before :each do  
+    Rails3::Assist::Directory.rails_root = fixtures_dir    
+                
+    remove_observer :account if has_observer? :account        
     create_observer :account do
       %q{
         def index

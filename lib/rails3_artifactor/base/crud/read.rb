@@ -1,4 +1,4 @@
-module Rails3::Assist::CRUD
+module Rails3::Assist::Artifact::CRUD
   module Read        
     
     # TODO: Support :before and :after hash options!

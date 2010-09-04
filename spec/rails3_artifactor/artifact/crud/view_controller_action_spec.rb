@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe 'view API - symbols' do
-  use_helpers :app, :view
+  use_helpers :view
 
   before :each do              
-    remove_view :account, :edit
+    Rails3::Assist::Directory.rails_root = fixtures_dir
+
+    remove_view :account, :edit if has_view? :account, :edit
     create_view :account, :edit do
       %q{
         <h1><%= title %></h1>

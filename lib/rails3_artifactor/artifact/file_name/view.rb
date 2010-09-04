@@ -26,7 +26,7 @@ module Rails3::Assist::Artifact
         when String, Symbol        
           type = args.delete_at(0)
         end      
-        [action, type, args]
+        [action || DEFAULT_REST_ACTION, type || DEFAULT_TEMPLATE_LANG, args]
       end
     end 
     
