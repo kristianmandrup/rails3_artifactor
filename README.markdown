@@ -1,6 +1,6 @@
 # Rails3 Artifactor
 
-Includes a DSL for operating on various types of Rails 3 application artifacts. The DSL mostly allows performing common CRUD operations etc.
+DSL for operating on various types of Rails 3 application artifacts. The DSL mostly allows performing common CRUD operations etc.
 This is particularly useful when creating Rails 3 generators, plugins etc. that perform code checks and mutations of the app.
 The artifactor has in part been designed for use with the *please me* tool. (see my github account)
 
