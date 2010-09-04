@@ -6,7 +6,7 @@ module Rails3::Assist::Artifact
     class_eval %{
       module #{name.to_s.camelize}
         def new_#{name}_content name, content=nil, &block
-          new_artifact_content name, :#{name}, content, &block
+          new_artifact_content name, :type => :#{name}, :content => content, &block
         end
       end
     }
@@ -17,6 +17,13 @@ module Rails3::Assist::Artifact
       module #{name.to_s.camelize}      
         include Rails3::Assist::BaseHelper
         include Rails3::Assist::Artifact::CRUD        
+
+        def has_#{name.to_s.pluralize}? *names
+          names.flatten.each do |name|
+            return false if !has_#{name}? name
+          end
+          true
+        end
 
         def has_#{name}? name, &block
           begin

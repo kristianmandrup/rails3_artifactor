@@ -8,7 +8,7 @@ module Rails3::Assist::Artifact::CRUD
       return nil if File.exist?(file)
 
       create_artifact_dir(file)      
-      content = get_content(name, type, content, options, &block)
+      content = get_content(name, type, options, &block)
       return if content.blank?
 
       File.overwrite file, content      
@@ -16,14 +16,20 @@ module Rails3::Assist::Artifact::CRUD
 
     protected
     
-    def new_artifact_content name, type, content=nil, &block
-      content ||= yield if block
+    # def new_artifact_content name, type, content=nil, &block
+    def new_artifact_content name, options = {}, &block
+      type = get_type(options)
+      content = get_content(name, type, options, &block)
       %Q{class #{marker(name, type)}
   #{content}
 end}
-    end    
+    end
 
-    private
+    def create_artifact_dir file
+      # make dir        
+      dir = File.dirname(file)
+      FileUtils.mkdir_p dir if !File.directory?(dir)
+    end
 
     def content_method type 
       method = :"new_#{type}_content"      
@@ -31,18 +37,11 @@ end}
       method
     end
 
-
-    def create_artifact_dir file
-      # make dir        
-      dir = File.dirname(file)
-      FileUtils.mkdir_p dir if !File.directory?(dir)
-    end
-    
-    def get_content name, type, content, options = {}, &block
+    def get_content name, type, options = {}, &block
       content = block ? yield : options[:content]
       content = type == :model ? content : options.merge(:content => content)
       method = content_method(type)
-      send method, name, content, &block
-    end    
+      send method, name, :content => content
+    end        
   end 
 end
