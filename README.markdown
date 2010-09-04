@@ -1,15 +1,17 @@
-# Rails3 Artifact helper
+# Rails3 Artifactor
 
-Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc
+Includes a DSL for operating on various types of Rails 3 application artifacts. The DSL mostly allows performing common CRUD operations etc.
+This is particularly useful when creating Rails 3 generators, plugins etc. that perform code checks and mutations of the app.
+The artifactor has in part been designed for use with the *please me* tool. (see my github account)
 
 ## Install
 
-(pending)
-<code>gem install rails3_artifact_helper</code>
+<code>gem install rails3_artifactor</code>
 
 ## Status
 
-Needs a few days of work/refactoring. Was extracted from rails3_assist project.
+* Specs pass
+* Still needs some refactoring to tidy it up!
 
 ## Usage
 
@@ -18,20 +20,37 @@ This will introduce various helper methods geared toward operating a that partic
 
 <pre>
 module MyCoolModule  
-  use_artifact_helpers :model, :controller
+  use_helpers :model, :controller
   use_orm :mongoid
   
   def make_hello_model  
     # this is a method available after loading the :model artifact helper
     # since orm used is set to :mongoid, it will create a mongoid model file
-    create_model :hello 
+    create_model :hello do
+     '# Hello'
+    end
+    
+    remove_model :hello if has_model? :hello
+    
+    create_controller :hello do
+      ...
+    end
   end
 end
 </pre>
 
 ## TODO
 
-Make full specs suite pass!
+Make DSL even better, fx:
+<pre>
+  with_model :account do |m|
+    m.create! do
+     '# hello'
+    end
+    
+    m.remove!    
+  end
+</pre>
 
 ## Note on Patches/Pull Requests
  
