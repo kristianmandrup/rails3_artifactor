@@ -5,7 +5,7 @@ module Rails3::Assist
 
       protected
 
-      def orm_marker_name options = {:model_type => :document}
+      def orm_marker_name name, options = {:model_type => :document}
         document_name options
       end
 

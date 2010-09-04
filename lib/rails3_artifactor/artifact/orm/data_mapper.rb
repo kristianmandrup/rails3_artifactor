@@ -6,13 +6,13 @@ module Rails3::Assist::Orm
       'DataMapper'
     end
 
-    def orm_marker_name options=nil
+    def orm_marker_name name, options=nil
       "#{orm_name}::Resource"
     end
 
     def new_model_content name, options={}, &block        
       content = options[:content] || yield if block
-      file_w_include(name, orm_marker_name(options)) { content }
+      file_w_include(name, orm_marker_name(name, options)) { content }
     end
 
     def field_name

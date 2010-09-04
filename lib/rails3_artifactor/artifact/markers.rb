@@ -62,7 +62,7 @@ module Rails3::Assist::Artifact
     include Rails3::Assist::BaseHelper    
     
     def model_marker name, options={}
-      return send :orm_marker_name, options if respond_to?(:orm_marker_name)
+      return send :orm_marker_name, name, options if respond_to?(:orm_marker_name)
       name.to_s.camelize      
     end
     
