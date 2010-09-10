@@ -6,7 +6,7 @@ describe 'helper' do
   before :each do              
     Rails3::Assist::Directory.rails_root = fixtures_dir
     
-    remove_helper :account if has_helper? :account        
+    # remove_helper :account if has_helper? :account        
     create_helper :account do
       %q{
         def index
@@ -20,12 +20,12 @@ describe 'helper' do
   end
     
   it "should have an account_helper file that contains an index method and two inserted comments" do
-    insert_into_helper :account, :content => '# hello'
-    insert_into_helper :account do
-      '# goodbye'
-    end
-    read_helper(:account).should have_comment 'hello'
-    puts read_helper(:account)
+    # insert_into_helper :account, :content => '# hello'
+    # insert_into_helper :account do
+    #   '# goodbye'
+    # end
+    # read_helper(:account).should have_comment 'hello'
+    # puts read_helper(:account)
     # root_dir.should have_helper :account do |helper_file|
     #   helper_file.should have_method :index
     #   helper_file.should have_comment 'hello'
