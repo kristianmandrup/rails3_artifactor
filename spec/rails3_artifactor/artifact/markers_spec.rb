@@ -1,8 +1,4 @@
-require 'require_all'
-require 'sugar-high/regexp'
-require 'rails3_artifactor/namespaces'
-require 'rails3_artifactor/artifact/markers'
-# require 'rails3_artifactor/rspec/configure'
+require 'spec_helper'
 
 describe Rails3::Assist::Artifact::Controller do
   before do

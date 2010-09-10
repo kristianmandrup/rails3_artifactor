@@ -1,9 +1,4 @@
-# require 'spec_helper'
-require 'require_all'
-require 'sugar-high/regexp'
-require 'rails3_artifactor/namespaces'
-require 'rails3_artifactor/artifact/file_name/view'
-# require 'rails3_artifactor/rspec/configure'
+require 'spec_helper'
 
 CLASS = Rails3::Assist::Artifact::View
 

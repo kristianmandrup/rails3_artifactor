@@ -1,6 +1,4 @@
-require 'require_all'
-require 'rails3_artifactor/namespaces'
-require 'rails3_artifactor/artifact/file_name/artifacts'
+require 'spec_helper'
 
 CLASS = Rails3::Assist::Artifact::FileName
 

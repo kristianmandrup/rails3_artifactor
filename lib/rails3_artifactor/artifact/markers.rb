@@ -1,6 +1,3 @@
-require 'rails3_artifactor/base/class_methods'
-require 'rails3_assist/base'
-
 module Rails3::Assist::Artifact
   module Marker
     def marker name, type, options=nil

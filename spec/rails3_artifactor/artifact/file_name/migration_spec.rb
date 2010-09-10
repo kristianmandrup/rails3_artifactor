@@ -1,9 +1,4 @@
-# require 'spec_helper'
-require 'require_all'
-require 'rails3_artifactor/namespaces'
-require 'rails3_artifactor/artifact/file_name/migration'
-require 'rails3_artifactor/artifact/orm'
-require 'rails3_artifactor/rspec/configure'
+require 'spec_helper'
 
 CLASS = Rails3::Assist::Artifact::Migration
 
