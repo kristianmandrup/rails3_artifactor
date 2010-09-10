@@ -4,12 +4,13 @@ module Rails3::Assist::Artifact::CRUD
   module Delete
     def remove_artifact name, type
       type = type[:type] if type.kind_of? Hash
-      file = existing_file_name name, type
-      if File.exist?(file)
+      begin
+        file = existing_file_name name, type
         FileUtils.rm_f(file) 
         debug "removed artifact: #{name}"  
         true
-      else
+      rescue
+        debug "artifact to remove not found: #{name}"          
         nil
       end
     end
