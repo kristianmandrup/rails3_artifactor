@@ -1,7 +1,7 @@
 module Rails3::Assist
   module Orm
     module Base
-      # include Rails3::Assist::Artifact::Model 
+      include Rails3::Assist::Artifact::Model 
 
       protected
 
