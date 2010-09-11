@@ -39,7 +39,7 @@ end}
 
     def extract_content type, options, &block
       content = block ? yield : options[:content]
-      # content = type == :model ? content : options.merge(:content => content)
+      content = type == :model ? options.merge(:content => content) : content
     end    
 
     def get_content name, type, options = {}, &block

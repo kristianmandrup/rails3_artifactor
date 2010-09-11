@@ -1,4 +1,8 @@
 class AccountController < ActionController::Base
+  # goodbye
   # hello
-  {:type=>:controller, :content=>"\n        def index\n        end\n      "}
+  
+        def index
+        end
+      
 end
