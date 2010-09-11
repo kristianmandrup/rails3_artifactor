@@ -5,7 +5,7 @@ module Rails3::Assist::Artifact::CRUD
     def create_artifact name, options={}, &block
       type = get_type(options)
       file = make_file_name(name, type)
-      return nil if File.exist?(file)
+      return nil if File.exist?(file) && options[:no_overwrite]
 
       create_artifact_dir(file)      
       content = get_content(name, type, options, &block)
@@ -39,13 +39,13 @@ end}
 
     def extract_content type, options, &block
       content = block ? yield : options[:content]
-      content = type == :model ? content : options.merge(:content => content)
+      # content = type == :model ? content : options.merge(:content => content)
     end    
 
     def get_content name, type, options = {}, &block
       content = extract_content type, options, &block
       method = content_method(type)
-      send method, name, :content => content
+      send method, name, content
     end        
   end 
 end
