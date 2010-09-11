@@ -19,7 +19,7 @@ module Rails3::Assist::Artifact
       def migration_file_name name, options={}
         number = options[:number]              
       
-        migration_dir_name = File.expand_path(DIR.migration_dir options[:root_path])
+        migration_dir_name = File.expand_path(DIR.migration_dir options)
               
         number = next_migration_number(migration_dir_name) if !number      
         File.join(migration_dir_name, "#{number}_#{name}.rb")      
@@ -28,7 +28,7 @@ module Rails3::Assist::Artifact
       def find_migration name, options={}
         root_path = options[:root_path]        
            
-        migration_dir_name = File.expand_path(DIR.migration_dir options[:root_path])
+        migration_dir_name = File.expand_path(DIR.migration_dir options)
 
         migration_find_expr = "#{migration_dir_name}/[0-9]*_*.rb"
         migrations = Dir.glob(migration_find_expr)
