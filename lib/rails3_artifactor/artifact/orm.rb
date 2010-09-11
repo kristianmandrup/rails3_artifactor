@@ -1,7 +1,11 @@
 module Rails3::Assist
   module Orm
     module Base
-      include Rails3::Assist::Artifact::Model 
+      def self.included base
+        base.class_eval do
+          include Rails3::Assist::Artifact::Model
+        end
+      end
 
       protected
 

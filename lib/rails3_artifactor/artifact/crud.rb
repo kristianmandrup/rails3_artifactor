@@ -14,9 +14,14 @@ module Rails3::Assist::Artifact
 
   Rails3::Assist.artifacts.each do |name|
     class_eval %{
-      module #{name.to_s.camelize}      
+      module #{name.to_s.camelize}
         include Rails3::Assist::BaseHelper
-        include Rails3::Assist::Artifact::CRUD        
+        
+        def self.included base
+          base.class_eval do              
+            include Rails3::Assist::Artifact::CRUD        
+          end
+        end
 
         def has_#{name.to_s.pluralize}? *names
           names.flatten.each do |name|
