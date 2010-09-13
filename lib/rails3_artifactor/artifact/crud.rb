@@ -13,6 +13,7 @@ module Rails3::Assist::Artifact
   end
 
   Rails3::Assist.artifacts.each do |name|
+    plural_name = name.to_s.pluralize
     class_eval %{
       module #{name.to_s.camelize}
         include Rails3::Assist::BaseHelper
@@ -23,22 +24,13 @@ module Rails3::Assist::Artifact
           end
         end
 
-        def has_#{name.to_s.pluralize}? *names
+        def has_#{plural_name}? *names
           names.to_strings.each do |name|
             return false if !has_#{name}? name
           end
           true
         end
-
-        def #{name}_file name, &block
-          begin
-            found = existing_file_name(name, :#{name}).path.file?
-          rescue IOError
-            found = false
-          end
-          yield found if block && found
-          found
-        end
+        alias_method :#{plural_name}_files?, :has_#{plural_name}?
 
         def has_#{name}? name, &block
           begin
@@ -51,6 +43,16 @@ module Rails3::Assist::Artifact
         end
         alias_method :has_#{name}_file?, :has_#{name}?
         alias_method :#{name}_file?, :has_#{name}?
+
+        def #{name}_file name, &block
+          begin
+            found = existing_file_name(name, :#{name}).path.file?
+          rescue IOError
+            found = false
+          end
+          yield found if block && found
+          found
+        end
         
         def create_#{name} name, options={}, &block
           create_artifact(name, set(options, :#{name}), &block)
@@ -68,7 +70,7 @@ module Rails3::Assist::Artifact
           remove_artifact name, :#{name}
         end
     
-        def remove_#{name}s *names      
+        def remove_#{plural_name} *names      
           remove_artifacts :#{name}, *names
         end              
         
