@@ -1,3 +1,5 @@
+# Rails3::Assist::UseMacro
+
 module Rails3::Assist
   module UseMacro
     def use_orm orm

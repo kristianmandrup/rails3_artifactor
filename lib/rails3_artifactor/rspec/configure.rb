@@ -1,3 +1,4 @@
+require 'rspec'
 require 'rails3_artifactor/rspec/macro'
 
 RSpec.configure do |config|
