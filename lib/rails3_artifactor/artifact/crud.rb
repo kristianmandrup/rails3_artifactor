@@ -72,7 +72,22 @@ module Rails3::Assist::Artifact
     
         def remove_#{plural_name} *names      
           remove_artifacts :#{name}, *names
-        end              
+        end  
+        
+        def remove_all_#{plural_name}
+          Rails3::Assist::Artifact::Files.#{name}_files.each{|f| ::File.delete_file! f}
+        end
+        alias_method :delete_all_#{plural_name}, :remove_all_#{plural_name}           
+    
+        def remove_#{plural_name} *names
+          return remove_all_#{plural_name} if names.empty? 
+          names.to_strings.each do |name|
+            ::File.delete #{name}_file(name)
+          end
+        end
+        alias_method :delete_#{plural_name}, :remove_#{plural_name} 
+        alias_method :remove_#{name}, :remove_#{plural_name} 
+        alias_method :delete_#{name}, :remove_#{plural_name}                    
         
         multi_aliases_for :#{name}            
       end
