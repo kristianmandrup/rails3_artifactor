@@ -57,7 +57,6 @@ Gem::Specification.new do |s|
      "spec/fixtures/app/models/account.rb",
      "spec/fixtures/app/views/account/edit.html.erb",
      "spec/fixtures/app/views/account/show.html.erb",
-     "spec/fixtures/db/migrations/20100904095012_create_account.rb",
      "spec/rails3_artifactor/artifact/base_spec.rb",
      "spec/rails3_artifactor/artifact/crud/controller_spec.rb",
      "spec/rails3_artifactor/artifact/crud/helper_spec.rb",
@@ -94,7 +93,8 @@ Gem::Specification.new do |s|
      "spec/fixtures/app/helpers/account_helper.rb",
      "spec/fixtures/app/mailers/account_mailer.rb",
      "spec/fixtures/app/models/account.rb",
-     "spec/fixtures/db/migrations/20100904095012_create_account.rb",
+     "spec/fixtures/app/models/account_observer.rb",
+     "spec/fixtures/db/migrations/20100913162614_create_account.rb",
      "spec/fixtures.rb",
      "spec/rails3_artifactor/artifact/base_spec.rb",
      "spec/rails3_artifactor/artifact/crud/controller_spec.rb",
@@ -129,16 +129,19 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0"])
+      s.add_runtime_dependency(%q<rspec>, ["~> 2.0.0"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.1.0"])
       s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.3"])
       s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.4"])
     else
+      s.add_dependency(%q<rspec>, ["~> 2.0.0"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0"])
       s.add_dependency(%q<require_all>, ["~> 1.1.0"])
       s.add_dependency(%q<sugar-high>, ["~> 0.2.3"])
       s.add_dependency(%q<rails3_assist>, ["~> 0.2.4"])
     end
   else
+    s.add_dependency(%q<rspec>, ["~> 2.0.0"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0"])
     s.add_dependency(%q<require_all>, ["~> 1.1.0"])
     s.add_dependency(%q<sugar-high>, ["~> 0.2.3"])
