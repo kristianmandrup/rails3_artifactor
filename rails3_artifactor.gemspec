@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-11}
+  s.date = %q{2010-09-13}
   s.description = %q{Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc.}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -53,6 +53,7 @@ Gem::Specification.new do |s|
      "spec/fixtures.rb",
      "spec/fixtures/app/controllers/account_controller.rb",
      "spec/fixtures/app/helpers/account_helper.rb",
+     "spec/fixtures/app/mailers/account_mailer.rb",
      "spec/fixtures/app/models/account.rb",
      "spec/fixtures/app/views/account/edit.html.erb",
      "spec/fixtures/app/views/account/show.html.erb",
@@ -60,6 +61,7 @@ Gem::Specification.new do |s|
      "spec/rails3_artifactor/artifact/base_spec.rb",
      "spec/rails3_artifactor/artifact/crud/controller_spec.rb",
      "spec/rails3_artifactor/artifact/crud/helper_spec.rb",
+     "spec/rails3_artifactor/artifact/crud/mailer_spec.rb",
      "spec/rails3_artifactor/artifact/crud/migration_spec.rb",
      "spec/rails3_artifactor/artifact/crud/model_spec.rb",
      "spec/rails3_artifactor/artifact/crud/observer_spec.rb",
@@ -129,18 +131,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.1.0"])
       s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.3"])
-      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.3.1"])
+      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.4"])
     else
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
       s.add_dependency(%q<require_all>, ["~> 1.1.0"])
       s.add_dependency(%q<sugar-high>, ["~> 0.2.3"])
-      s.add_dependency(%q<rails3_assist>, ["~> 0.3.1"])
+      s.add_dependency(%q<rails3_assist>, ["~> 0.2.4"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
     s.add_dependency(%q<require_all>, ["~> 1.1.0"])
     s.add_dependency(%q<sugar-high>, ["~> 0.2.3"])
-    s.add_dependency(%q<rails3_assist>, ["~> 0.3.1"])
+    s.add_dependency(%q<rails3_assist>, ["~> 0.2.4"])
   end
 end
 
