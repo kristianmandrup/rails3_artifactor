@@ -24,10 +24,20 @@ module Rails3::Assist::Artifact
         end
 
         def has_#{name.to_s.pluralize}? *names
-          names.flatten.each do |name|
+          names.to_strings.each do |name|
             return false if !has_#{name}? name
           end
           true
+        end
+
+        def #{name}_file name, &block
+          begin
+            found = existing_file_name(name, :#{name}).path.file?
+          rescue IOError
+            found = false
+          end
+          yield found if block && found
+          found
         end
 
         def has_#{name}? name, &block
