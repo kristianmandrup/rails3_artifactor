@@ -21,6 +21,10 @@ module Rails3::Assist
         begin
           module_name = "Rails3::Assist::#{type.to_s.camelize}"
           include module_name.constantize
+          if [:files, :directory].include? type
+            module_name = "Rails3::Assist::Artifact::#{type.to_s.camelize}"
+            include module_name.constantize          
+          end
         rescue
           raise ArgumentError, "Unregistered Rails3 assist library: #{type}, #{module_name}"
         end
