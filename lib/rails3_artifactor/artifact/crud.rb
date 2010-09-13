@@ -45,11 +45,7 @@ module Rails3::Assist::Artifact
         alias_method :#{name}_file?, :has_#{name}?
 
         def #{name}_file name, &block
-          begin
-            found = existing_file_name(name, :#{name}).path.file?
-          rescue IOError
-            found = false
-          end
+          found = existing_file_name(name, :#{name}).path
           yield found if block && found
           found
         end
