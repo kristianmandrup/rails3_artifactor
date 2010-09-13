@@ -49,6 +49,8 @@ module Rails3::Assist::Artifact
           yield if block && found
           found
         end
+        alias_method :has_#{name}_file?, :has_#{name}?
+        alias_method :#{name}_file?, :has_#{name}?
         
         def create_#{name} name, options={}, &block
           create_artifact(name, set(options, :#{name}), &block)
