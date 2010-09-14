@@ -13,7 +13,7 @@ module Rails3::Assist::Artifact
       dir = File.dirname(file_name)
       FileUtils.mkdir_p dir if !File.directory?(dir)
 
-      content = get_content(args) || yield if block
+      content = get_view_content(args) || yield if block
       
       # abort if no content given
       debug "Warning: Content must be passed in either as a :content hash or a block" if !content
@@ -58,7 +58,7 @@ module Rails3::Assist::Artifact
       FileUtils.rm_f(file) if File.exist?(file)
     end
 
-    def get_content args
+    def get_view_content args
       args = args.flatten
       case args.first
       when Hash
