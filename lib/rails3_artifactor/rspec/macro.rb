@@ -45,7 +45,7 @@ module Rails3::Assist
     end
   
     def use_helper type
-      return rails_assist(type) if [:file, :files, :directory].include?(type)        
+      return rails_assist(type) if [:file, :files, :directory, :app].include?(type)        
       artifact_assist(type)
     end 
     alias_method :load_helper, :use_helper
