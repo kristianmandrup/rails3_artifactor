@@ -11,7 +11,7 @@ module Rails3::Assist::Orm
     end
 
     def new_model_content name, options={}, &block        
-      content = options[:content] || yield if block
+      content = block ? yield : options[:content]
       file_w_include(name, orm_marker_name(name, options)) { content }
     end
 
