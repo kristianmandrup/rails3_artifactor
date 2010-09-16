@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_artifactor}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
      "spec/rails3_artifactor/artifact/crud/helper_spec.rb",
      "spec/rails3_artifactor/artifact/crud/mailer_spec.rb",
      "spec/rails3_artifactor/artifact/crud/migration_spec.rb",
+     "spec/rails3_artifactor/artifact/crud/model_active_record_spec.rb",
      "spec/rails3_artifactor/artifact/crud/model_spec.rb",
      "spec/rails3_artifactor/artifact/crud/observer_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_action_spec.rb",
@@ -90,6 +91,7 @@ Gem::Specification.new do |s|
      "spec/rails3_artifactor/artifact/crud/helper_spec.rb",
      "spec/rails3_artifactor/artifact/crud/mailer_spec.rb",
      "spec/rails3_artifactor/artifact/crud/migration_spec.rb",
+     "spec/rails3_artifactor/artifact/crud/model_active_record_spec.rb",
      "spec/rails3_artifactor/artifact/crud/model_spec.rb",
      "spec/rails3_artifactor/artifact/crud/observer_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_action_spec.rb",
