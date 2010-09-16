@@ -23,7 +23,36 @@ describe 'migration' do
   end
 
   after :each do              
-    # remove_migration :create_account
+    remove_migration :create_account
+  end
+
+  context "Non-existant migration(s)" do
+    it "should not fail trying to remove non-existant migrations" do
+      remove_migrations :person, :user
+      remove_artifacts :migration, :person, :user
+
+      remove_migration :person
+      remove_artifact :migration, :person
+    end
+  
+    it "should not find a non-existant migration" do
+      migration_file :person do |person|
+        fail "should not find person migration!"
+      end                                       
+    
+      has_migration?(:person).should be_false
+      has_migrations?(:person, :user).should be_false
+    end
+     
+    it "should not insert into non-existant migration" do
+      insert_into_migration(:person, :after => 'Hello', :content => 'Yes').should_not be_true
+    end
+  
+    it "should not read from non-existant migration" do
+      read_migration :person do |content|
+        fail "should not find person content!"
+      end.should_not be_true
+    end   
   end
     
   it "should have an create_account_migration file that contains an index method and two inserted comments" do

@@ -14,7 +14,36 @@ describe 'model without orm' do
   end
 
   after :each do              
-    # remove_model :account
+    remove_model :account
+  end
+
+  context "Non-existant model(s)" do
+    it "should not fail trying to remove non-existant models" do
+      remove_models :person, :user
+      remove_artifacts :model, :person, :user
+
+      remove_model :person
+      remove_artifact :model, :person
+    end
+  
+    it "should not find a non-existant model" do
+      model_file :person do |person|
+        fail "should not find person model!"
+      end                                       
+    
+      has_model?(:person).should be_false
+      has_models?(:person, :user).should be_false
+    end
+     
+    it "should not insert into non-existant model" do
+      insert_into_model(:person, :after => 'Hello', :content => 'Yes').should_not be_true
+    end
+  
+    it "should not read from non-existant model" do
+      read_model :person do |content|
+        fail "should not find person content!"
+      end.should_not be_true
+    end   
   end
     
   it "should have an account_model file that contains an index method and two inserted comments" do

@@ -45,9 +45,13 @@ module Rails3::Assist::Artifact
         alias_method :#{name}_file?, :has_#{name}?
 
         def #{name}_file name, &block
-          found = existing_file_name(name, :#{name}).path
-          yield found if block && found
-          found
+          begin
+            found = existing_file_name(name, :#{name}).path
+            yield found if block && found
+            found
+          rescue
+            nil
+          end
         end
         
         def create_#{name} name, options={}, &block
@@ -55,11 +59,20 @@ module Rails3::Assist::Artifact
         end          
       
         def insert_into_#{name}(name, options={}, &block)
-          insert_into_artifact(name, set(options, :#{name}), &block)      
+          begin
+            insert_into_artifact(name, set(options, :#{name}), &block)      
+            true
+          rescue
+            nil
+          end
         end
         
         def read_#{name}(name, options={}, &block)
-          read_artifact(name, set(options, :#{name}), &block)      
+          begin
+            read_artifact(name, set(options, :#{name}), &block)
+          rescue
+            nil
+          end
         end
 
         def remove_#{name} name
@@ -81,7 +94,7 @@ module Rails3::Assist::Artifact
           return remove_all_#{plural_name} if names.empty? 
           names.to_strings.each do |name|
             file_name = #{name}_file(name)
-            ::File.delete! file_name if ::File.file?(file_name)
+            ::File.delete!(file_name) if file_name && ::File.file?(file_name)
           end
         end
         alias_method :delete_#{plural_name}, :remove_#{plural_name} 

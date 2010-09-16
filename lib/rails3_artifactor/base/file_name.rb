@@ -19,7 +19,7 @@ module Rails3::Assist::Artifact
         end
         return result
       elsif type == :migration
-        raise "The method #find_#{type} to find the migration is not available!"
+        raise StandardError, "The method #find_#{type} to find the migration is not available!"
       end
       
       # default for non-migration
