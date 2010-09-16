@@ -45,6 +45,10 @@ describe 'model without orm' do
       end.should_not be_true
     end   
   end
+
+  it 'should have #index method in :account model' do
+    read_model(:account).should have_method :index
+  end
     
   it "should have an account_model file that contains an index method and two inserted comments" do
     insert_into_model :account, :content => '# hello'
