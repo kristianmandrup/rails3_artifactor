@@ -6,7 +6,7 @@ describe 'controller' do
   before :each do
     Rails3::Assist::Directory.rails_root = fixtures_dir
     
-    remove_controller :account if has_controller? :account        
+    remove_controller :account # if has_controller? :account        
     create_controller :account do
       %q{
         def index

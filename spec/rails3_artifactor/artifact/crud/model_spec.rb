@@ -6,7 +6,7 @@ describe 'model without orm' do
   before :each do  
     Rails3::Assist::Directory.rails_root = fixtures_dir
     
-    delete_model(:account) if has_model? :account                
+    delete_model(:account) # if has_model? :account                
     create_model :account do
       %q{def index
   end}
