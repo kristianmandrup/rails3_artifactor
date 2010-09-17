@@ -45,6 +45,13 @@ module Rails3::Assist
     end
   
     def use_helper type
+      if type == :special
+        class_eval do
+          include "Rails3::Assist::File::Special".constantize
+        end        
+        return
+      end
+
       return rails_assist(type) if [:file, :files, :directory, :app].include?(type)        
       artifact_assist(type)
     end 
