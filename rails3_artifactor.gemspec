@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_artifactor}
-  s.version = "0.2.3"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-17}
+  s.date = %q{2010-09-18}
   s.description = %q{Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc.}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
      "spec/rails3_artifactor/artifact/crud/model_active_record_spec.rb",
      "spec/rails3_artifactor/artifact/crud/model_spec.rb",
      "spec/rails3_artifactor/artifact/crud/observer_spec.rb",
+     "spec/rails3_artifactor/artifact/crud/permit_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_action_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_default_action_spec.rb",
      "spec/rails3_artifactor/artifact/file_name/artifacts_spec.rb",
@@ -94,6 +95,7 @@ Gem::Specification.new do |s|
      "spec/rails3_artifactor/artifact/crud/model_active_record_spec.rb",
      "spec/rails3_artifactor/artifact/crud/model_spec.rb",
      "spec/rails3_artifactor/artifact/crud/observer_spec.rb",
+     "spec/rails3_artifactor/artifact/crud/permit_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_action_spec.rb",
      "spec/rails3_artifactor/artifact/crud/view_controller_default_action_spec.rb",
      "spec/rails3_artifactor/artifact/file_name/artifacts_spec.rb",
