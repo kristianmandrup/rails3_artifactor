@@ -1,3 +1,13 @@
+module RubyMutator
+  def remove_superclass
+    self.gsub! /(class\s+\w+\s*)<\s*(\w|::)+/, '\1'
+  end
+  
+  def inherit_from superclass
+    self.gsub! /(class\s+(\w|::)+)/, '\1' + " < #{superclass.to_s.camelize}\n"
+  end
+end
+
 module Rails3::Assist::Artifact::CRUD
   module Create             
     include Rails3::Assist::Artifact::Marker
@@ -9,6 +19,15 @@ module Rails3::Assist::Artifact::CRUD
 
       create_artifact_dir(file)      
       content = get_content(name, type, options, &block)
+      
+      superclass = options[:superclass] if options[:superclass]
+
+      if superclass
+        content.extend(RubyMutator)
+        content.remove_superclass
+        content.inherit_from "#{superclass}_permit"
+      end
+      
       return if content.blank?
 
       File.overwrite file, content      

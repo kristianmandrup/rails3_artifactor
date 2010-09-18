@@ -25,7 +25,7 @@ module Rails3::Assist::Artifact
 
   module Permit
     def permit_marker name, options=nil
-      "#{name.to_s.camelize}"
+      "#{name.to_s.camelize}Permit < Permit::Base"
     end        
     
     extend self    
