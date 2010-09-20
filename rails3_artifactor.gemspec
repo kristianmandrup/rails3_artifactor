@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_artifactor}
-  s.version = "0.2.4"
+  s.version = "0.2.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-18}
+  s.date = %q{2010-09-20}
   s.description = %q{Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc.}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -124,21 +124,24 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_runtime_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.1.0"])
-      s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.8"])
-      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.7"])
+      s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.10"])
+      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+      s.add_runtime_dependency(%q<migration_assist>, ["~> 0.1.4"])
     else
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_dependency(%q<require_all>, ["~> 1.1.0"])
-      s.add_dependency(%q<sugar-high>, ["~> 0.2.8"])
-      s.add_dependency(%q<rails3_assist>, ["~> 0.2.7"])
+      s.add_dependency(%q<sugar-high>, ["~> 0.2.10"])
+      s.add_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+      s.add_dependency(%q<migration_assist>, ["~> 0.1.4"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
     s.add_dependency(%q<require_all>, ["~> 1.1.0"])
-    s.add_dependency(%q<sugar-high>, ["~> 0.2.8"])
-    s.add_dependency(%q<rails3_assist>, ["~> 0.2.7"])
+    s.add_dependency(%q<sugar-high>, ["~> 0.2.10"])
+    s.add_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+    s.add_dependency(%q<migration_assist>, ["~> 0.1.4"])
   end
 end
 
