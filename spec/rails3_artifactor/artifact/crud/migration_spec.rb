@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-Rails::Migration::Assist.orm = :active_record
+Rails3::Migration::Assist.orm = :active_record
 
 describe 'migration' do 
   use_orm :active_record

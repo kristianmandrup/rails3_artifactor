@@ -4,7 +4,7 @@ require 'sugar-high/regexp'
 module Rails3::Assist::Artifact
   module Migration
     module FileName 
-      include ::Rails::Migration::Assist::ClassMethods      
+      include ::Rails3::Migration::Assist::ClassMethods      
 
       DIR = Rails3::Assist::Artifact::Directory
 
