@@ -6,6 +6,7 @@ require 'sugar-high/module'
 
 require 'rails3_artifactor/namespaces'
 require 'rails3_artifactor/artifact/base'
+require 'rails3_artifactor/artifact/markers'
 require 'rails3_artifactor/base'
 require 'rails3_artifactor/artifact'
 require 'rails3_artifactor/macro'
