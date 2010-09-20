@@ -1,5 +1,5 @@
 require 'rspec/core'
-require 'rails3_artifactor/rspec/macro'
+require 'rails3_artifactor/macro'
 
 RSpec.configure do |config|
   config.extend   Rails3::Assist::UseMacro
