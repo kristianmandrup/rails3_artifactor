@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/rails3_artifactor.rb",
+     "lib/rails3_artifactor/artifact.rb",
      "lib/rails3_artifactor/artifact/base.rb",
      "lib/rails3_artifactor/artifact/crud.rb",
      "lib/rails3_artifactor/artifact/crud/view.rb",
@@ -40,15 +41,17 @@ Gem::Specification.new do |s|
      "lib/rails3_artifactor/artifact/orm/mongo_mapper.rb",
      "lib/rails3_artifactor/artifact/orm/mongoid.rb",
      "lib/rails3_artifactor/artifact/orm/none.rb",
+     "lib/rails3_artifactor/base.rb",
      "lib/rails3_artifactor/base/crud.rb",
      "lib/rails3_artifactor/base/crud/create.rb",
      "lib/rails3_artifactor/base/crud/delete.rb",
      "lib/rails3_artifactor/base/crud/read.rb",
      "lib/rails3_artifactor/base/crud/update.rb",
      "lib/rails3_artifactor/base/file_name.rb",
+     "lib/rails3_artifactor/macro.rb",
      "lib/rails3_artifactor/namespaces.rb",
+     "lib/rails3_artifactor/rspec.rb",
      "lib/rails3_artifactor/rspec/configure.rb",
-     "lib/rails3_artifactor/rspec/macro.rb",
      "rails3_artifactor.gemspec",
      "spec/fixtures.rb",
      "spec/fixtures/app/views/account/edit.html.erb",
@@ -123,24 +126,24 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_runtime_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
-      s.add_runtime_dependency(%q<require_all>, ["~> 1.1.0"])
+      s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.10"])
-      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+      s.add_runtime_dependency(%q<rails3_assist>, ["~> 0.2.10"])
       s.add_runtime_dependency(%q<migration_assist>, ["~> 0.1.4"])
     else
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
-      s.add_dependency(%q<require_all>, ["~> 1.1.0"])
+      s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<sugar-high>, ["~> 0.2.10"])
-      s.add_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+      s.add_dependency(%q<rails3_assist>, ["~> 0.2.10"])
       s.add_dependency(%q<migration_assist>, ["~> 0.1.4"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.22"])
-    s.add_dependency(%q<require_all>, ["~> 1.1.0"])
+    s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<sugar-high>, ["~> 0.2.10"])
-    s.add_dependency(%q<rails3_assist>, ["~> 0.2.9"])
+    s.add_dependency(%q<rails3_assist>, ["~> 0.2.10"])
     s.add_dependency(%q<migration_assist>, ["~> 0.1.4"])
   end
 end
