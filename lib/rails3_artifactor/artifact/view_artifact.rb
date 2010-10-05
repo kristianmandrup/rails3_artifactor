@@ -1,6 +1,7 @@
 module Rails3::Assist::Artifact
   module View
     include Rails3::Assist::BaseHelper
+    include Rails3::Assist::Artifact::CRUD
 
     def has_view? name, *args, &block
       file_name = view_file_name(name, args)
@@ -27,7 +28,7 @@ module Rails3::Assist::Artifact
     end  
 
     # READ
-    def read_view(name, *args, &block)
+    def read_view name, *args, &block
       file_name = view_file_name(name, args)
       debug "reading from: #{file_name}"
       file = File.new(file_name)
@@ -43,7 +44,7 @@ module Rails3::Assist::Artifact
     end
     
     # UPDATE
-    def insert_into_view(name, *args, &block)
+    def insert_into_view name, *args, &block
       file_name = view_file_name(name, args)
       debug "file insertion (view): #{file_name}"
       options = last_option args
@@ -53,9 +54,16 @@ module Rails3::Assist::Artifact
     end
 
     # DELETE
-    def remove_view name, action=nil, type=nil
-      file = view_file_name(name, action, type)
+    def remove_view name, *args
+      file = view_file_name(name, args)
       FileUtils.rm_f(file) if File.exist?(file)
+    end
+
+    # remove_views :edit, :show, :folder => :person
+    def remove_views *args
+      options = last_option args
+      raise ArgumentError, "Missing :folder option in the last argument which must be a Hash" if !options && !options[:folder]
+      args.to_symbols.each{|name| remove_view name, options}      
     end
 
     def get_view_content args

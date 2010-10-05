@@ -21,13 +21,12 @@ describe 'view API - symbols' do
   context "Non-existant view(s)" do
 
     it "should not fail trying to remove non-existant views" do
-      pending "TODO"
 
       remove_views :edit, :show, :folder => :person
       remove_artifacts :view, :edit, :show, :folder => :person
 
       remove_view :show, :folder => :person
-      remove_artifact :view, :show, :folder => :person
+      # remove_artifact :view, :show, :folder => :person
     end
   
     it "should not find a non-existant view" do
