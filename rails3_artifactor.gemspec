@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_artifactor}
-  s.version = "0.2.6"
+  s.version = "0.2.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-25}
+  s.date = %q{2010-10-05}
   s.description = %q{Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc.}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -29,7 +29,10 @@ Gem::Specification.new do |s|
      "lib/rails3_artifactor/artifact.rb",
      "lib/rails3_artifactor/artifact/base.rb",
      "lib/rails3_artifactor/artifact/crud.rb",
-     "lib/rails3_artifactor/artifact/crud/view.rb",
+     "lib/rails3_artifactor/artifact/crud/create.rb",
+     "lib/rails3_artifactor/artifact/crud/delete.rb",
+     "lib/rails3_artifactor/artifact/crud/read.rb",
+     "lib/rails3_artifactor/artifact/crud/update.rb",
      "lib/rails3_artifactor/artifact/file_name/artifacts.rb",
      "lib/rails3_artifactor/artifact/file_name/migration.rb",
      "lib/rails3_artifactor/artifact/file_name/view.rb",
@@ -41,6 +44,7 @@ Gem::Specification.new do |s|
      "lib/rails3_artifactor/artifact/orm/mongo_mapper.rb",
      "lib/rails3_artifactor/artifact/orm/mongoid.rb",
      "lib/rails3_artifactor/artifact/orm/none.rb",
+     "lib/rails3_artifactor/artifact/view_artifact.rb",
      "lib/rails3_artifactor/base.rb",
      "lib/rails3_artifactor/base/crud.rb",
      "lib/rails3_artifactor/base/crud/create.rb",
