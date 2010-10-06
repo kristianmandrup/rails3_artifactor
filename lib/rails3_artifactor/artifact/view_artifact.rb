@@ -7,6 +7,18 @@ module Rails3::Assist::Artifact
       file_name = view_file_name(name, args)
       file_name.path.file?
     end
+
+    def has_views? *args, &block
+      options = last_option args
+      args.to_strings.each do |name|
+        return false if !has_view? name, options
+      end
+      true
+    end
+
+    def view_file name, *args
+      view_file_name(name, args)
+    end
     
     # CREATE
     def create_view name, *args, &block

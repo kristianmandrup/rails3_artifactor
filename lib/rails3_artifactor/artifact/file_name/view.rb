@@ -1,34 +1,145 @@
 module Rails3::Assist::Artifact
-  module View
+  module View    
     module FileName
-      DEFAULT_TEMPLATE_LANG = 'html.erb'
-      DEFAULT_REST_ACTION = 'show'
-
       DIR = Rails3::Assist::Artifact::Directory
+
+      module Helper
+        def default_template_lang 
+          'html.erb'
+        end
+
+        def get_type type
+          case type.to_s
+          when 'erb'
+            'erb.html'
+          when 'haml'
+            'haml.html'
+          else
+            type
+          end
+        end
+      end
           
-      def view_file_name folder, *args
-        action, type, args = get_view_args(args)
+      def view_file_name *args
+        folder, action, type = get_view_args(args)
         File.expand_path File.join(DIR.view_dir, folder.to_s, "#{action}.#{type}")
       end 
       
-      def get_view_args args 
+      def get_view_args *args
         args = args.flatten
-        action  = DEFAULT_REST_ACTION
-        type    = DEFAULT_TEMPLATE_LANG
-        case args.first
-        when Hash
-          action = args.first.delete(:action)
-          type = args.first.delete(:type)
-        when String, Symbol     
-          action = args.delete_at(0)
-        end
-        case args.first
-        when String, Symbol        
-          type = args.delete_at(0)
-        end      
-        [action || DEFAULT_REST_ACTION, type || DEFAULT_TEMPLATE_LANG, args]
+        raise ArgumentError, "view_file_name must be called with one or more arguments to return a view file" if args.size == 0
+        case args.size
+        when 1        
+          SingleArg.get_view_args *args
+        when 2
+          SingleArg.get_view_args *args 
+        end 
       end
     end 
+
+    module SingleArg
+      def self.get_view_args *args
+        args = args.flatten
+        arg = args.first
+        case arg
+        when Hash
+          # view_file(:person => :show).should == /views\/person\/show\.html\.erb/          
+          return HashArg.get_view_args arg if arg.keys.size == 1 
+          # view_file(:folder => 'person', :type => :show).should == /views\/person\/show\.html\.erb/         
+          HashArgs.get_view_args *args
+        when String
+          TwoArgs.get_view_args *args
+        end        
+      end
+      
+      module HashArg
+        extend Rails3::Assist::Artifact::View::FileName::Helper
+        
+        # view_file(:person => :show).should == /views\/person\/show\.html\.erb/          
+        def self.get_view_args one_hash 
+          folder = one_hash.keys.first.to_s
+          full_action = one_hash.values.first.to_s
+          action = full_action.gsub /\.(.*)/, ''
+          type = full_action.split('.')[1..-1].join('.')
+          type = type.empty? ? default_template_lang : type
+          [folder, action, type]
+        end
+      end
+
+      module HashArgs
+        extend Rails3::Assist::Artifact::View::FileName::Helper
+        
+        # view_file(:folder => 'person', :action => :show, :type => :erb).should == /views\/person\/show\.html\.erb/         
+        def self.get_view_args hash 
+          folder = hash[:folder]          
+          action = hash[:action]
+          type = hash[:type]
+          type = type.empty? ? default_template_lang : type
+          [folder, action, type]
+        end
+      end
+
+      module StringArg
+        extend Rails3::Assist::Artifact::View::FileName::Helper
+
+        # view_file('person/show').should == /views\/person\/show\.html\.erb/                         
+        def self.get_view_args string 
+          path_lvs = string.split('/')
+          raise ArgumentError, "view must be in a subfolder #{args}" if path_lvs.size < 2
+          folder = path_lvs[0..-2].join('/')
+          action = path_lvs.last.gsub /\.(.*)/, ''
+          type = action.split('.')[1..-1].join('.')
+          type = type.empty? ? default_template_lang : type
+          [folder, action, type]
+        end
+      end
+    end
+
+    module TwoArgs                
+      def self.get_view_args
+        arg2 = args[1]
+        case arg2
+        when String, Symbol
+          # view_file(:person, :show).should == /views\/person\/show\.html\.erb/
+          # view_file('person/admin', :show, :type => :erb).should == /views\/person\/show\.html\.erb/
+          TwoLabels.get_view_args args
+        when Hash
+          # view_file(:show, :folder => 'person', :type => :erb).should == /views\/person\/show\.html\.erb/
+          ActionAndHash.get_view_args args
+        end        
+      end
+      
+      module TwoLabels
+        extend Rails3::Assist::Artifact::View::FileName::Helper
+
+        # view_file(:person, :show).should == /views\/person\/show\.html\.erb/
+        # view_file('person/admin', :show, :type => :erb).should == /views\/person\/show\.html\.erb/
+        def self.get_view_args *args
+          args = args.flatten 
+          folder = args.first.to_s
+          action = args[1].to_s
+          hash = args[2] if args.size > 2
+          type = hash ? hash[:type] : default_template_lang
+          [folder, action, type]
+        end        
+      end
+
+      module ActionAndHash
+        extend Rails3::Assist::Artifact::View
+        
+        # view_file(:show, :folder => 'person', :type => :erb).should == /views\/person\/show\.html\.erb/
+        def self.get_view_args *args
+          args = args.flatten 
+          action = args.first.to_s
+
+          hash = action.last
+          folder = hash[:folder]
+          type = hash[:type] || default_template_lang
+          
+          [folder, action, type]
+        end        
+      end                
+    end
     
     include FileName
     extend FileName

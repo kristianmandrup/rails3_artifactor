@@ -20,29 +20,35 @@ describe 'view API - symbols' do
 
   context "Non-existant view(s)" do
 
+    it "should find view file using args" do
+      view_file(:person => :show).should == /views\/person\/show\.html\.erb/
+      view_file(:person => 'show').should == /views\/person\/show\.html\.erb/
+      view_file('person/admin/' => 'show').should == /views\/person\/admin\/show\.html\.erb/
+      view_file(:person, :show).should == /views\/person\/show\.html\.erb/      
+      view_file('person/admin', :show).should == /views\/person\/show\.html\.erb/      
+      view_file(:show, :folder => 'person').should == /views\/person\/show\.html\.erb/      
+      view_file(:folder => 'person', :type => :show).should == /views\/person\/show\.html\.erb/      
+    end 
+
     it "should not fail trying to remove non-existant views" do
 
       remove_views :edit, :show, :folder => :person
       remove_artifacts :view, :edit, :show, :folder => :person
 
       remove_view :show, :folder => :person
-      # remove_artifact :view, :show, :folder => :person
+      remove_artifact :view, :show, :folder => :person
     end
   
     it "should not find a non-existant view" do
-      pending "TODO"
-
       view_file :show, :folder => :person do |person|
         fail "should not find person view!"
       end                                       
     
       has_view?(:show, :folder => :person).should be_false
-      has_views?(:show, :folder => :person).should be_false
+      has_views?(:show, :edit, :folder => :person).should be_false
     end
      
     it "should not insert into non-existant view" do
-      pending "TODO"
-
       insert_into_view(:show, :folder => :person, :after => 'Hello', :content => 'Yes').should_not be_true
     end
   
