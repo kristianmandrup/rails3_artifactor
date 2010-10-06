@@ -73,7 +73,7 @@ module Rails3::Assist::Artifact
           folder = one_hash.keys.first.to_s
           filename = one_hash.values.first.to_s
           action = filename_name filename
-          type = get_view_type(filename_type full_action)
+          type = get_view_type(filename_type filename)
           [folder, action, type]
         end
       end
@@ -98,8 +98,9 @@ module Rails3::Assist::Artifact
           path_lvs = string.split('/')
           raise ArgumentError, "view must be in a subfolder #{args}" if path_lvs.size < 2
           folder = path_lvs[0..-2].join('/')
-          action = path_lvs.last.gsub /\.(.*)/, ''
-          type = get_view_type(action.split('.')[1..-1].join('.'))
+          filename = path_lvs.last
+          action = filename_name filename
+          type = get_view_type(filename_type filename)
           [folder, action, type]
         end
       end
@@ -130,8 +131,8 @@ module Rails3::Assist::Artifact
           folder = args.first.to_s
           action = args[1].to_s
           hash = args[2] if args.size > 2
-          type = hash ? hash[:type] : default_template_lang
-          [folder, action, get_type(type)]
+          type = get_view_type(hash ? hash[:type] : nil)
+          [folder, action, type]
         end        
       end
 
@@ -145,9 +146,9 @@ module Rails3::Assist::Artifact
 
           hash = args.last
           folder = hash[:folder]
-          type = hash[:type] || default_template_lang
+          type = get_view_type(hash[:type])
           
-          [folder, action, get_type(type)]
+          [folder, action, type]
         end        
       end                
     end
