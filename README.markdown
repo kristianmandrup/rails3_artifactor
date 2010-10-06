@@ -39,6 +39,10 @@ module MyCoolModule
 end
 </pre>
 
+## Update, Okt. 5 2010
+
+Now includes a very flexible API for specifying view files etc. See *view_file_spec.rb* for usage examples.
+
 ## TODO
 
 Make DSL even better, fx:
