@@ -17,6 +17,18 @@ module Rails3::Assist::Artifact
           else
             type
           end
+        end 
+
+        def get_view_type type
+          get_type(type.empty? ? default_template_lang : type)
+        end          
+        
+        def filename_type str 
+          str.split('.')[1..-1].join('.')
+        end
+        
+        def filename_name str  
+          str.gsub /\.(.*)/, ''
         end
       end
 
@@ -59,11 +71,10 @@ module Rails3::Assist::Artifact
         # view_file(:person => :show).should == /views\/person\/show\.html\.erb/          
         def self.get_view_args one_hash 
           folder = one_hash.keys.first.to_s
-          full_action = one_hash.values.first.to_s
-          action = full_action.gsub /\.(.*)/, ''
-          type = full_action.split('.')[1..-1].join('.')
-          type = type.empty? ? default_template_lang : type
-          [folder, action, get_type(type)]
+          filename = one_hash.values.first.to_s
+          action = filename_name filename
+          type = get_view_type(filename_type full_action)
+          [folder, action, type]
         end
       end
 
@@ -74,9 +85,8 @@ module Rails3::Assist::Artifact
         def self.get_view_args hash 
           folder = hash[:folder]          
           action = hash[:action]
-          type = hash[:type]
-          type = type.empty? ? default_template_lang : type
-          [folder, action, get_type(type)]
+          type = get_view_type(hash[:type])
+          [folder, action, type]
         end
       end
 
@@ -89,9 +99,8 @@ module Rails3::Assist::Artifact
           raise ArgumentError, "view must be in a subfolder #{args}" if path_lvs.size < 2
           folder = path_lvs[0..-2].join('/')
           action = path_lvs.last.gsub /\.(.*)/, ''
-          type = action.split('.')[1..-1].join('.')
-          type = type.empty? ? default_template_lang : type
-          [folder, action, get_type(type)]
+          type = get_view_type(action.split('.')[1..-1].join('.'))
+          [folder, action, type]
         end
       end
     end
