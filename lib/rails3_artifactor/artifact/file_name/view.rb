@@ -5,7 +5,7 @@ module Rails3::Assist::Artifact
 
       module Helper
         def default_template_lang 
-          'html.erb'
+          'erb.html'
         end
 
         def get_type type
@@ -19,7 +19,8 @@ module Rails3::Assist::Artifact
           end
         end
       end
-          
+
+      # TODO: Refactor all code below to make much more DRY !!!
       def view_file_name *args
         folder, action, type = get_view_args(args)
         File.expand_path File.join(DIR.view_dir, folder.to_s, "#{action}.#{type}")
@@ -47,7 +48,7 @@ module Rails3::Assist::Artifact
           return HashArg.get_view_args arg if arg.keys.size == 1 
           # view_file(:folder => 'person', :type => :show).should == /views\/person\/show\.html\.erb/         
           HashArgs.get_view_args *args
-        when String
+        when Symbol, String 
           TwoArgs.get_view_args *args
         end        
       end
@@ -62,7 +63,7 @@ module Rails3::Assist::Artifact
           action = full_action.gsub /\.(.*)/, ''
           type = full_action.split('.')[1..-1].join('.')
           type = type.empty? ? default_template_lang : type
-          [folder, action, type]
+          [folder, action, get_type(type)]
         end
       end
 
@@ -75,7 +76,7 @@ module Rails3::Assist::Artifact
           action = hash[:action]
           type = hash[:type]
           type = type.empty? ? default_template_lang : type
-          [folder, action, type]
+          [folder, action, get_type(type)]
         end
       end
 
@@ -90,13 +91,14 @@ module Rails3::Assist::Artifact
           action = path_lvs.last.gsub /\.(.*)/, ''
           type = action.split('.')[1..-1].join('.')
           type = type.empty? ? default_template_lang : type
-          [folder, action, type]
+          [folder, action, get_type(type)]
         end
       end
     end
 
     module TwoArgs                
-      def self.get_view_args
+      def self.get_view_args *args
+        args = args.flatten
         arg2 = args[1]
         case arg2
         when String, Symbol
@@ -120,23 +122,23 @@ module Rails3::Assist::Artifact
           action = args[1].to_s
           hash = args[2] if args.size > 2
           type = hash ? hash[:type] : default_template_lang
-          [folder, action, type]
+          [folder, action, get_type(type)]
         end        
       end
 
       module ActionAndHash
-        extend Rails3::Assist::Artifact::View
+        extend Rails3::Assist::Artifact::View::FileName::Helper
         
         # view_file(:show, :folder => 'person', :type => :erb).should == /views\/person\/show\.html\.erb/
         def self.get_view_args *args
           args = args.flatten 
           action = args.first.to_s
 
-          hash = action.last
+          hash = args.last
           folder = hash[:folder]
           type = hash[:type] || default_template_lang
           
-          [folder, action, type]
+          [folder, action, get_type(type)]
         end        
       end                
     end
