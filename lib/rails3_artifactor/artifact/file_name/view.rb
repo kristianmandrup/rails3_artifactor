@@ -44,7 +44,7 @@ module Rails3::Assist::Artifact
         case args.size
         when 1        
           SingleArg.get_view_args *args
-        when 2
+        else
           SingleArg.get_view_args *args 
         end 
       end

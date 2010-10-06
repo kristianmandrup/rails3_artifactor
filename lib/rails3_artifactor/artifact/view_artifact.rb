@@ -43,9 +43,8 @@ module Rails3::Assist::Artifact
     def read_view name, *args, &block
       file_name = view_file_name(name, args)
       debug "reading from: #{file_name}"
-      file = File.new(file_name)
-      raise "The view file: #{file} could not be found" if !file
       begin
+        file = File.new(file_name)
         content = file.read
         debug "read content: #{content}"
         yield content if block
@@ -56,13 +55,17 @@ module Rails3::Assist::Artifact
     end
     
     # UPDATE
-    def insert_into_view name, *args, &block
-      file_name = view_file_name(name, args)
-      debug "file insertion (view): #{file_name}"
-      options = last_option args
-      raise ArgumentError, ":before or :after option must be specified for insertion" if !(options[:before] || options[:after])
-      
-      File.insert_into file_name, options, &block
+    def insert_into_view *args, &block
+      begin
+        file_name = view_file_name(args)
+        debug "file insertion (view): #{file_name}"
+        options = last_option args
+        raise ArgumentError, ":before or :after option must be specified for insertion" if !(options[:before] || options[:after])
+        File.insert_into file_name, options, &block
+        true
+      rescue
+        nil
+      end
     end
 
     # DELETE
