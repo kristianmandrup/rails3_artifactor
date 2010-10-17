@@ -11,9 +11,9 @@ module Rails3::Assist::Artifact
         def get_type type
           case type.to_s
           when 'erb'
-            'erb.html'
+            'html.erb'
           when 'haml'
-            'haml.html'
+            'html.haml'
           else
             type
           end
@@ -32,7 +32,6 @@ module Rails3::Assist::Artifact
         end
       end
 
-      # TODO: Refactor all code below to make much more DRY !!!
       def view_file_name *args
         folder, action, type = get_view_args(args)
         File.expand_path File.join(DIR.view_dir, folder.to_s, "#{action}.#{type}")

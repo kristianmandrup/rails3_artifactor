@@ -12,6 +12,12 @@ describe 'view API - symbols' do
         <h1><%= title %></h1>
       }
     end    
+
+    create_view :layouts, :application do
+      %q{
+        app layout
+      }
+    end    
   end
 
   after :each do              
@@ -19,6 +25,11 @@ describe 'view API - symbols' do
   end
 
   context "Non-existant view(s)" do
+
+    it "should read applicaiton layouts view" do
+      read_view(:layouts => :application).should match /app layout/
+      read_view(:layouts, :application).should match /app layout/
+    end
 
     it "should not fail trying to remove non-existant views" do
       remove_views :edit, :show, :folder => :person
