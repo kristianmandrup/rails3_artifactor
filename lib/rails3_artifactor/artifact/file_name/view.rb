@@ -5,7 +5,7 @@ module Rails3::Assist::Artifact
 
       module Helper
         def default_template_lang 
-          'erb.html'
+          get_type :erb
         end
 
         def get_type type

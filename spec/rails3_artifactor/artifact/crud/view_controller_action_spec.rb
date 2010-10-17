@@ -27,6 +27,7 @@ describe 'view API - symbols' do
   context "Non-existant view(s)" do
 
     it "should read applicaiton layouts view" do
+      view_file_name(:layouts => :application).should match /html\.erb/
       read_view(:layouts => :application).should match /app layout/
       read_view(:layouts, :application).should match /app layout/
     end
