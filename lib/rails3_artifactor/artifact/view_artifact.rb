@@ -16,13 +16,13 @@ module Rails3::Assist::Artifact
       true
     end
 
-    def view_file name, *args
-      view_file_name(name, args)
+    def view_file *args
+      view_file_name(args)
     end
     
     # CREATE
-    def create_view name, *args, &block
-      file_name = view_file_name(name, args)      
+    def create_view *args, &block
+      file_name = view_file_name(args)      
       dir = File.dirname(file_name)
       FileUtils.mkdir_p dir if !File.directory?(dir)
 
@@ -40,8 +40,8 @@ module Rails3::Assist::Artifact
     end  
 
     # READ
-    def read_view name, *args, &block
-      file_name = view_file_name(name, args)
+    def read_view *args, &block
+      file_name = view_file_name(args)
       debug "reading from: #{file_name}"
       begin
         file = File.new(file_name)
@@ -69,8 +69,8 @@ module Rails3::Assist::Artifact
     end
 
     # DELETE
-    def remove_view name, *args
-      file = view_file_name(name, args)
+    def remove_view *args
+      file = view_file_name(args)
       FileUtils.rm_f(file) if File.exist?(file)
     end
 

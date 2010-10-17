@@ -24,7 +24,7 @@ describe 'view API - symbols' do
       remove_views :edit, :show, :folder => :person
       remove_artifacts :view, :edit, :show, :folder => :person
 
-      remove_view :show, :folder => :person
+      remove_view :person => :show
       remove_artifact :view, :show, :folder => :person
     end
   
@@ -42,7 +42,7 @@ describe 'view API - symbols' do
     end
   
     it "should not read from non-existant view" do
-      read_view :show, :folder => :person do |content|
+      read_view :person => :show do |content|
         fail "should not find person content!"
       end.should_not be_true
     end   
