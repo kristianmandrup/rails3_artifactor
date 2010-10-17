@@ -44,7 +44,7 @@ module Rails3::Assist::Artifact
         when 1        
           SingleArg.get_view_args *args
         else
-          SingleArg.get_view_args *args 
+          TwoArgs.get_view_args *args 
         end 
       end
     end 
@@ -79,11 +79,20 @@ module Rails3::Assist::Artifact
 
       module HashArgs
         extend Rails3::Assist::Artifact::View::FileName::Helper
+
+        DIR = Rails3::Assist::Artifact::Directory
         
         # view_file(:folder => 'person', :action => :show, :type => :erb).should == /views\/person\/show\.html\.erb/         
-        def self.get_view_args hash 
-          folder = hash[:folder]          
-          action = hash[:action]
+        def self.get_view_args hash
+          try_folder = hash.keys.first
+          try_view_folder = File.expand_path(File.join(DIR.view_dir, try_folder.to_s))
+          if File.directory? try_view_folder
+            folder = try_folder          
+            action = hash.values.first
+          else
+            folder = hash[:folder]          
+            action = hash[:action]
+          end            
           type = get_view_type(hash[:type])
           [folder, action, type]
         end
@@ -109,7 +118,7 @@ module Rails3::Assist::Artifact
       def self.get_view_args *args
         args = args.flatten
         arg2 = args[1]
-        case arg2
+        res = case arg2
         when String, Symbol
           # view_file(:person, :show).should == /views\/person\/show\.html\.erb/
           # view_file('person/admin', :show, :type => :erb).should == /views\/person\/show\.html\.erb/
@@ -129,7 +138,7 @@ module Rails3::Assist::Artifact
           args = args.flatten 
           folder = args.first.to_s
           action = args[1].to_s
-          hash = args[2] if args.size > 2
+          hash = args[2] if args.size > 2          
           type = get_view_type(hash ? hash[:type] : nil)
           [folder, action, type]
         end        
