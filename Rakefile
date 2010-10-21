@@ -7,12 +7,12 @@ begin
     gem.email = "kmandrup@gmail.com"
     gem.homepage = "http://github.com/kristianmandrup/rails3_artifact_helper"
     gem.authors = ["Kristian Mandrup"]
-    gem.add_development_dependency "rspec", ">= 2.0.0.rc"
+    gem.add_development_dependency "rspec", ">= 2.0"
 
-    gem.add_dependency "rspec",             ">= 2.0.0.rc"
+    gem.add_dependency "rspec",             ">= 2.0.0"
     gem.add_dependency "require_all",       "~> 1.2.0"
-    gem.add_dependency "sugar-high",        "~> 0.2.10"
-    gem.add_dependency 'rails3_assist',     "~> 0.2.10"
+    gem.add_dependency "sugar-high",        "~> 0.3.0"
+    gem.add_dependency 'rails3_assist',     "~> 0.3.0"
     gem.add_dependency 'migration_assist',  "~> 0.1.4"
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
