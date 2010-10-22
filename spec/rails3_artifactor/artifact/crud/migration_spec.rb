@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'generator-spec'
 
 Rails3::Migration::Assist.orm = :active_record
 
@@ -26,7 +27,7 @@ describe 'migration' do
     remove_migration :create_account
   end
 
-  context "Non-existant migration(s)" do
+  context "Migration not there" do
     it "should not fail trying to remove non-existant migrations" do
       remove_migrations :person, :user
       remove_artifacts :migration, :person, :user
@@ -54,27 +55,32 @@ describe 'migration' do
       end.should_not be_true
     end   
   end
-    
-  it "should have an create_account_migration file that contains an index method and two inserted comments" do
-    insert_into_migration :create_account, :content => '# hello'
-    insert_into_migration :create_account do
-      '# goodbye'
+
+  context "When migration does exist" do
+    before do
+      insert_into_migration :create_account, :content => '# hello'
+      insert_into_migration :create_account do
+        '# goodbye'
+      end
     end
-    read_migration(:create_account).should have_comment 'hello'
-    puts read_migration(:create_account)
+    
+    it "should have an :create_account migration file that contains an index method and two inserted comments" do
+      nil.should have_migration :create_account
 
-    # puts migration_file_name :create_account
-
-    # puts existing_file_name :create_account, :migration
-
-    # @root_dir.should have_migration :create_account
-    # 
-    # lambda {existing_migration_file :blip}.should raise_error
-    # 
-    # @root_dir.should have_migration :create_account do |migration_file|
-    #   migration_file.should have_class_method :up
-    #   migration_file.should have_comment 'hello'
-    #   migration_file.should have_comment 'goodbye'
-    # end
+      read_migration(:create_account).should have_comment 'hello'
+      read_migration(:create_account).should match /ActiveRecord::Migration/
+    end
+    
+    it "should not have migration blip" do
+      lambda {existing_migration_file :blip}.should raise_error
+    end
+        
+    it "shoud have migraion a :create_account migration with basic setup" do
+      nil.should have_migration :create_account do |migration_file|
+        migration_file.should have_class_method :up
+        migration_file.should have_comment 'hello'
+        migration_file.should have_comment 'goodbye'
+      end
+    end
   end
 end
