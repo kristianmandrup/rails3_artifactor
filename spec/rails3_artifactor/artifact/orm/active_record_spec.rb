@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'model with active_record' do
   use_orm :active_record
 
+  before do
+    Rails3::Assist::Directory.rails_root = File.dirname (__FILE__)
+  end
+
   before :each do              
     remove_model :account        
     create_model :account do
@@ -12,7 +16,7 @@ describe 'model with active_record' do
   end
 
   after :each do              
-    # remove_model :account
+    remove_model :account
   end
     
   it "should have an account_model file that contains an index method and two inserted comments" do

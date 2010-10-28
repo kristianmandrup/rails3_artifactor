@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'model with Mongoid' do
   use_orm :mongoid
 
+  before do
+    Rails3::Assist::Directory.rails_root = File.dirname (__FILE__)
+  end
+
   before :each do              
     remove_model :account        
     create_model :account do

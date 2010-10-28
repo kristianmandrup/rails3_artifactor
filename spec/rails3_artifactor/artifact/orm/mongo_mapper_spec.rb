@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'model with Mongo Mapper' do
   use_orm :mongo_mapper
 
+  before do
+    Rails3::Assist::Directory.rails_root = File.dirname (__FILE__)
+  end
+
   before :each do              
     remove_model :account        
     create_model :account do

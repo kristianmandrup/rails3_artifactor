@@ -34,7 +34,7 @@ describe Rails3::Assist::Artifact::Permit do
 
   describe '#permit_marker' do
     it "should return the class marker for permit :person" do      
-      @clazz.permit_marker(:person).should == 'Person'
+      @clazz.permit_marker(:person).should == 'PersonPermit < Permit::Base'
     end
   end
 end

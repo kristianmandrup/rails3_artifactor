@@ -34,7 +34,12 @@ module Rails3::Assist::Artifact
 
       def view_file_name *args
         folder, action, type = get_view_args(args)
-        File.expand_path File.join(DIR.view_dir, folder.to_s, "#{action}.#{type}")
+        options = last_option args
+        root_path = options[:root_path]
+        views_path = options[:views_path]
+        views_path ||= File.join(root_path, 'app/views') if root_path
+        puts "views: #{views_path}"
+        File.expand_path File.join(views_path || DIR.view_dir, folder.to_s, "#{action}.#{type}")
       end 
       
       def get_view_args *args
