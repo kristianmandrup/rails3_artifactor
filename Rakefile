@@ -5,7 +5,7 @@ begin
     gem.summary = %Q{Helpers for handling Rails 3 artifacts}
     gem.description = %Q{Helpers for handling Rails 3 artifacts in general, such as CRUD operations etc.}
     gem.email = "kmandrup@gmail.com"
-    gem.homepage = "http://github.com/kristianmandrup/rails3_artifact_helper"
+    gem.homepage = "http://github.com/kristianmandrup/rails3_artifactor"
     gem.authors = ["Kristian Mandrup"]
     gem.add_development_dependency "rspec",           ">= 2.0.0"
     gem.add_development_dependency "generator-spec",  '>= 0.7.0'

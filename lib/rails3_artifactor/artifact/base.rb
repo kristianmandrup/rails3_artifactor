@@ -4,7 +4,7 @@ module Rails3::Assist
       base.extend ClassMethods
       base.class_eval do
         include Rails3::Assist::App
-        include ::Thor::Actions
+        # include ::Thor::Actions
       end
     end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'permit' do
-  use_helpers :permit
+  use_helper :permit
 
   before :each do              
     Rails3::Assist::Directory.rails_root = fixtures_dir

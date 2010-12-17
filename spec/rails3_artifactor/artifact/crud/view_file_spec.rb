@@ -12,8 +12,8 @@ describe 'view API - symbols' do
   end
 
   it "should find view file using args" do
-    simple_path = 'views/person/show.erb.html'
-    admin_path = 'views/person/admin/show.erb.html'
+    simple_path = 'views/person/show.html.erb'
+    admin_path = 'views/person/admin/show.html.erb'
     
     person_show = simple_path_expr(simple_path)
     person_admin_show = simple_path_expr(admin_path)
